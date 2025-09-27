@@ -22,27 +22,48 @@ A modern, full-stack to-do list application built with React (frontend) and Node
 
 ### Installation
 
+#### **Quick Setup (Recommended):**
+
 1. **Clone the repository:**
    ```bash
-   git clone <your-repo-url>
-   cd to-do-list
+   git clone https://github.com/Poojan2107/To-Do-List.git
+   cd To-Do-List
    ```
 
-2. **Install all dependencies:**
+2. **Run the setup script:**
+   
+   **For Windows:**
+   ```bash
+   setup.bat
+   ```
+   
+   **For Mac/Linux:**
+   ```bash
+   chmod +x setup.sh
+   ./setup.sh
+   ```
+
+3. **Start the application:**
+   ```bash
+   npm run dev
+   ```
+
+#### **Manual Setup:**
+
+1. **Install all dependencies:**
    ```bash
    npm run install:all
    ```
 
-3. **Set up environment variables:**
+2. **Set up environment variables:**
    ```bash
    # Copy the example environment file
    cp backend/.env.example backend/.env
-   
-   # Edit backend/.env and add your MongoDB Atlas connection string
-   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/todo-list
    ```
+   
+   **Note:** The MongoDB Atlas connection string is already configured in the .env.example file and will work immediately.
 
-4. **Start the application:**
+3. **Start the application:**
    ```bash
    npm run dev
    ```
