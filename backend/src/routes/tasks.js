@@ -25,6 +25,24 @@ router.get('/', async (_, res) => {
   }
 });
 
+// Pretty-print endpoint for better JSON formatting
+router.get('/pretty', async (_, res) => {
+  try {
+    const tasks = await Task.find().sort({ createdAt: -1 });
+    return res.set('Content-Type', 'application/json').send(JSON.stringify({ 
+      ok: true, 
+      message: 'Tasks fetched', 
+      data: tasks 
+    }, null, 2));
+  } catch (error) {
+    console.error('Fetch tasks error', error);
+    return res.status(500).set('Content-Type', 'application/json').send(JSON.stringify({ 
+      ok: false, 
+      message: 'Failed to fetch tasks' 
+    }, null, 2));
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
@@ -65,5 +83,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 export default router;
-
 

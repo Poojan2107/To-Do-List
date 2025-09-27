@@ -3,15 +3,21 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import detect from 'detect-port';
 import tasksRouter from './routes/tasks.js';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load .env file from the backend directory
+dotenv.config({ path: join(__dirname, '.env') });
 
 const app = express();
-import detect from 'detect-port';
 const DEFAULT_PORT = process.env.PORT || 4000;
 let PORT = DEFAULT_PORT;
-const MONGODB_URI = process.env.MONGODB_URI || '';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://Poojan:Poojan@todolist.a0zfuho.mongodb.net/todo-list?retryWrites=true&w=majority';
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
@@ -25,6 +31,7 @@ app.get('/', (_, res) => {
     <ul>
       <li>GET <code>/api/health</code> - Health check</li>
       <li>GET <code>/api/tasks</code> - List all tasks</li>
+      <li>GET <code>/api/tasks/pretty</code> - List all tasks (formatted)</li>
       <li>POST <code>/api/tasks</code> - Create a new task</li>
       <li>GET <code>/api/tasks/:id</code> - Get a specific task</li>
       <li>PUT <code>/api/tasks/:id</code> - Update a task</li>
@@ -32,6 +39,7 @@ app.get('/', (_, res) => {
     </ul>
   `);
 });
+
 app.get('/api/health', (_, res) => res.json({ ok: true, message: 'API is healthy' }));
 app.use('/api/tasks', tasksRouter);
 
@@ -39,24 +47,26 @@ if (!MONGODB_URI) {
   console.error('Missing MONGODB_URI in environment. Please set it in .env');
 }
 
-
 async function start() {
   try {
     if (MONGODB_URI) {
+      console.log('Attempting to connect to MongoDB...');
       await mongoose.connect(MONGODB_URI);
-      console.log('Connected to MongoDB');
+      console.log('✅ Connected to MongoDB Atlas successfully!');
+    } else {
+      console.warn('⚠️ No MONGODB_URI provided, running without database');
     }
+    
     PORT = await detect(DEFAULT_PORT);
     if (PORT !== DEFAULT_PORT) {
       console.warn(`Port ${DEFAULT_PORT} is in use, switching to ${PORT}`);
     }
-    app.listen(PORT, () => console.log(`Server listening on http://localhost:${PORT}`));
+    app.listen(PORT, () => console.log(`🚀 Server listening on http://localhost:${PORT}`));
   } catch (error) {
-    console.error('Failed to start server', error);
+    console.error('❌ Failed to start server:', error.message);
+    console.error('Please check your MongoDB Atlas connection string and network access settings');
     process.exit(1);
   }
 }
 
 start();
-
-

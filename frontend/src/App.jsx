@@ -143,8 +143,8 @@ export default function App() {
           <div className="card-header d-flex justify-content-between align-items-center">
             <span>Tasks</span>
             <div className="btn-group">
-              <button className="btn btn-sm btn-outline-primary" onClick={fetchTasks}>Refresh</button>
-              <button className="btn btn-sm btn-outline-secondary" onClick={() => window.location.reload()}>Reload</button>
+              <button className="btn btn-sm btn-primary" onClick={fetchTasks}>🔄 Refresh</button>
+              <button className="btn btn-sm btn-secondary" onClick={() => window.location.reload()}>🔄 Reload</button>
             </div>
           </div>
           <ul className="list-group list-group-flush">
