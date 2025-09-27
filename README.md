@@ -135,23 +135,3 @@ to-do-list/
 3. **Complete a task:** Check the checkbox to mark as completed
 4. **Delete a task:** Click the "Delete" button to remove permanently
 5. **Refresh data:** Use the "🔄 Refresh" button to reload from database
-
-## 🌐 Deployment
-
-This application is ready for deployment on platforms like:
-- Vercel (Frontend)
-- Heroku (Backend)
-- Netlify (Frontend)
-- Railway (Full-stack)
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
-
-## 📞 Support
-
-If you have any questions or need help, please open an issue in the repository.
